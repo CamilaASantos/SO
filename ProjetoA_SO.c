@@ -10,11 +10,22 @@ int file1Open = true; /* Arquivo hipotetico 1 */
 int file2Open = true; /* Arquivo hipotetico 2 */
 int valor1 = 500;
 
-/* Definicao da funcao em C que ira tratar das interrupcoes */
-sighandler_t signal (int signum, sighandler_t handler);
+ void trata_SIGINT (int signum){
+  raise(SIGINT);// Chama a função default do SIGINT
+ }
+
+ void trata_SIGTERM (int signum){
+  raise(SIGINT);
+ }
 
 int main()
 {
+ /* Definicao da funcao em C que ira tratar das interrupcoes */
+ // SIGINT (ctrl+c)
+sighandler_t signal (SIGINT, trata_SIGINT);
+// SIGTERM (kill)
+sighandler_t signal (SIGTERM, trata_SIGTERM);
+  
 pid_t pid;
 pid = fork();
 if (!pid)
