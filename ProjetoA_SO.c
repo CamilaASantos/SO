@@ -1,7 +1,7 @@
 #include <sys/wait.h> /* system call - wait */
 #include <stdint.h> /* system call - wait */
 #include <stdlib.h> /* system call - exit */
-#include <unistd.h> /* system call - fork, exec, sleep
+#include <unistd.h> /* system call - fork, exec, sleep*/
 #include <signal.h> /*system call - signal*/
 #include <stdio.h>
 // Variaveis globais
@@ -11,11 +11,23 @@ int file2Open = true; /* Arquivo hipotetico 2 */
 int valor1 = 500;
 
  void trata_SIGINT (int signum){
-  raise(SIGINT);// Chama a função default do SIGINT
+  char entrada;
+  printf("Verifiquei a solicitação de parada pelo comando ctrl+c, você realmente deseja encerrar o processo? Caso sim, digite 'x', se não, digite 'o':\n");
+  scanf("%c",entrada);
+  if(entrada == 'x' || entrada == 'X'){
+   file1Open = false;
+   file2Open = false;
+   printf("Fechando arquivos file1Open e file2Open...\n");
+   printf("O valor1 eh de: %d", valor1);
+   exit(0);
  }
 
  void trata_SIGTERM (int signum){
-  raise(SIGINT);
+   file1Open = false;
+   file2Open = false;
+   printf("Fechando arquivos file1Open e file2Open...\n");
+   printf("O valor1 eh de: %d", valor1);
+   exit(0);
  }
 
 int main()
