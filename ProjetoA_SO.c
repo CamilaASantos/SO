@@ -2,11 +2,17 @@
 #include <stdint.h> /* system call - wait */
 #include <stdlib.h> /* system call - exit */
 #include <unistd.h> /* system call - fork, exec, sleep
+#include <signal.h> /*system call - signal*/
 #include <stdio.h>
 // Variaveis globais
+
 int file1Open = true; /* Arquivo hipotetico 1 */
 int file2Open = true; /* Arquivo hipotetico 2 */
 int valor1 = 500;
+
+/* Definicao da funcao em C que ira tratar das interrupcoes */
+sighandler_t signal (int signum, sighandler_t handler);
+
 int main()
 {
 pid_t pid;
